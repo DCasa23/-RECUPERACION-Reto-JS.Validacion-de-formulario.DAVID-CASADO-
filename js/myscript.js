@@ -45,7 +45,7 @@ formulario.addEventListener("submit", e => {
     document.getElementById("parrafo").innerHTML = "";
     let incorrecto = false
     let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-    let regexIBAN = /^(ES\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{2}[ ]\d{10})|(ES\d{22})$/
+    let regexIBAN = /^(ES\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{2}[ ]\d{10})$/
     let regexDNI = /^(\d{8})([A-z])$/;
     let regexMOVIL = /^(\d{3}[ ]\d{3}[ ]\d{3})|(\d{3}[ ]\d{2}[ ]\d{2}[ ]\d{2})$/
 
@@ -128,6 +128,7 @@ formulario.addEventListener("submit", e => {
 }*/
 function borrarTodo(){
     formulario.reset()
+    swift.placeholder = "Clicka aquí al introducir el IBAN"
 }
 function cambiarSWIFT(swift) {
     if(getBICBank(iban.value.substring(5, 9)=='undefined')){
