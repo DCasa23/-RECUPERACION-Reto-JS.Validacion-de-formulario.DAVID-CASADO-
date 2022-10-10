@@ -90,7 +90,7 @@ formulario.addEventListener("submit", e => {
     if ((swift.placeholder == "undefined")||(swift.placeholder == "IBAN INCORRECTO")||(swift.placeholder == "Clicka aquí al introducir el IBAN")) {
         
         swift.placeholder = "IBAN INCORRECTO"
-        warnings += ' Actualice el Swift <br><br>'
+        warnings += ' Actualice el Swift pulsando encima <br><br>'
         incorrecto = true
     }
     if (usuario.value.length < 1) {
@@ -126,6 +126,9 @@ formulario.addEventListener("submit", e => {
 
     
 }*/
+function borrarTodo(){
+    formulario.reset()
+}
 function cambiarSWIFT(swift) {
     if(getBICBank(iban.value.substring(5, 9)=='undefined')){
         swift.placeholder = "IBAN INCORRECTO"
