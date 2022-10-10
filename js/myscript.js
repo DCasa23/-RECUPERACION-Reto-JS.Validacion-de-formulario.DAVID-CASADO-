@@ -85,8 +85,16 @@ formulario.addEventListener("submit", e => {
         incorrecto = true
     }
     
+    
+    console.log(swift.placeholder)
+    if ((swift.placeholder == "undefined")||(swift.placeholder == "IBAN INCORRECTO")||(swift.placeholder == "Clicka aquí al introducir el IBAN")) {
+        
+        swift.placeholder = "IBAN INCORRECTO"
+        warnings += ' Actualice el Swift <br><br>'
+        incorrecto = true
+    }
     if (usuario.value.length < 1) {
-        //alert("Completa el campo nombre");
+        //alert("Completa el campo usuario");
         warnings += ' El Usuario no es valido <br><br>'
         incorrecto = true
     }
@@ -119,8 +127,11 @@ formulario.addEventListener("submit", e => {
     
 }*/
 function cambiarSWIFT(swift) {
+    if(getBICBank(iban.value.substring(5, 9)=='undefined')){
+        swift.placeholder = "IBAN INCORRECTO"
+    }else{
     swift.placeholder = getBICBank(iban.value.substring(5, 9));
-
+    }
 }
 
 function getBICBank(entidad) {
