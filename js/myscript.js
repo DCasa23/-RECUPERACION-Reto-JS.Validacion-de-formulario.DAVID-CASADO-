@@ -52,13 +52,13 @@ formulario.addEventListener("submit", e => {
 
     if (nombre.value.length < 1) {
         //alert("Completa el campo nombre");
-        warnings += ' El nombre no es valido <br><br>'
+        warnings += ' El nombre esta vacio <br><br>'
         incorrecto = true
 
     }
-    if (apellidos.value.length < 5) {
+    if (apellidos.value.length < 1) {
         //alert("Completa el campo nombre");
-        warnings += ' Los apellidos no son validos <br><br>'
+        warnings += ' Los apellidos estan vacios <br><br>'
         incorrecto = true
     }
     
@@ -95,7 +95,7 @@ formulario.addEventListener("submit", e => {
     }
     if (usuario.value.length < 1) {
         //alert("Completa el campo usuario");
-        warnings += ' El Usuario no es valido <br><br>'
+        warnings += ' El Usuario esta vacio <br><br>'
         incorrecto = true
     }
     console.log(fecha.value.substring(0,4))
