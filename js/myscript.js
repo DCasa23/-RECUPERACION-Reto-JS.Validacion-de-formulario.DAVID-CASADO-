@@ -10,34 +10,12 @@ const fecha = document.getElementById("fecha")
 const form = document.getElementById("formulario")
 const parrafo = document.getElementById("warnings")
 
-/*
-/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-valor = document.getElementById("campo").value;
-if (!(/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)/.test(valor))) {
-    return false;
-}
-
-var formulario = document.getElementsByName('formulario')[0],
-    elementos = formulario.elements,
-    boton = document.getElementsById('btn');
-
-var validarNombre = function () {
-    if (formulario.nombre.value == 0) {
-        alert("Completa el campo nombre");
-        e.preventDefault();
-    }
-};
-
-var validar = function (e) {
-    validarNombre(e);
-}
-*/
-
-/*function do_update(swift) {
-    document.getElementById(swift).value = nombre.value.substring(4, 8);
-}*/
 
 
+let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let regexIBAN = /^(ES\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{2}[ ]\d{10})$/;
+    let regexDNI = /^(\d{8})([A-z])$/;
+    let regexMOVIL = /^(\d{3}[ ]\d{3}[ ]\d{3})|(\d{3}[ ]\d{2}[ ]\d{2}[ ]\d{2})$/;
 formulario.addEventListener("submit", e => {
     
     e.preventDefault()
@@ -49,15 +27,16 @@ formulario.addEventListener("submit", e => {
     let regexDNI = /^(\d{8})([A-z])$/;
     let regexMOVIL = /^(\d{3}[ ]\d{3}[ ]\d{3})|(\d{3}[ ]\d{2}[ ]\d{2}[ ]\d{2})$/
 
-
+    
     if (nombre.value.length < 1) {
-        //alert("Completa el campo nombre");
+        
         warnings += ' El nombre esta vacio <br><br>'
         incorrecto = true
 
+    
     }
     if (apellidos.value.length < 1) {
-        //alert("Completa el campo nombre");
+        
         warnings += ' Los apellidos estan vacios <br><br>'
         incorrecto = true
     }
@@ -69,19 +48,19 @@ formulario.addEventListener("submit", e => {
     }
     console.log(regexMOVIL.test(telefono.value))
     if (!regexMOVIL.test(telefono.value)) {
-        warnings += ' El Telefono no es valido <br><br>'
+        warnings += ' El Telefono no es valido, debe tener el formato:<br> XXX XXX XXX o XXX XX XX XX <br><br>'
         incorrecto = true
     }
 
     console.log(regexDNI.test(dni.value))
     if (!regexDNI.test(dni.value)) {
-        warnings += ' El DNI no es valido <br><br>'
+        warnings += ' El DNI no es valido, debe contener: <br> 8 números y 1 letra en mayuscula <br><br>'
         incorrecto = true
     }
     
     console.log(regexIBAN.test(iban.value))
     if (!regexIBAN.test(iban.value)) {
-        warnings += ' El IBAN no es valido <br><br>'
+        warnings += ' El IBAN no es valido, debe tener el formato:<br> ESXX XXXX XXXX XX XXXXXXXXXX <br><br>'
         incorrecto = true
     }
     
@@ -94,7 +73,6 @@ formulario.addEventListener("submit", e => {
         incorrecto = true
     }
     if (usuario.value.length < 1) {
-        //alert("Completa el campo usuario");
         warnings += ' El Usuario esta vacio <br><br>'
         incorrecto = true
     }
@@ -118,26 +96,81 @@ formulario.addEventListener("submit", e => {
     
     
 });
-/*function validar(){
-    formulario.reset()
-    if (parrafo.length==0){
-        alert(' Has enviado correctamente los datos.<br><br>Recibiras un correo de confirmación en pocos minutos ')
-    }
 
-    
-}*/
 function borrarTodo(){
-    formulario.reset()
-    swift.placeholder = "Clicka aquí al introducir el IBAN"
+    
+    formulario.reset();
+    swift.placeholder = "Clicka aquí al introducir el IBAN";
 }
 function cambiarSWIFT(swift) {
-    if(getBICBank(iban.value.substring(5, 9)=='undefined')){
+    if(typeof getBICBank(iban.value.substring(5, 9)==='undefined')){
         swift.placeholder = "IBAN INCORRECTO"
+        iban.style.background='red';
     }else{
-    swift.placeholder = getBICBank(iban.value.substring(5, 9));
+        swift.placeholder = getBICBank(iban.value.substring(5, 9));
+        iban.style.background='white';
     }
 }
 
+function validarNombre(nombre){
+    if (nombre.value.length < 1) {
+        nombre.style.background='red';
+    }
+}
+function validarApellido(apellidos){
+    if (apellidos.value.length < 1) {
+        apellidos.style.background='red';
+    }
+}
+function validarCorreo(correo){
+    if (!regexEmail.test(correo.value)) {
+        correo.style.background='red';
+    }
+}
+function validarTelefono(telefono){
+    if (!regexMOVIL.test(telefono.value)) {
+        telefono.style.background='red';
+    }
+}
+function validarDNI(dni){
+    if (!regexDNI.test(dni.value)) {
+        dni.style.background='red';
+    }
+}
+function validarIBAN(iban){
+    if (!regexIBAN.test(iban.value)) {
+        iban.style.background='red';
+    }
+}
+
+function validarUsuario(usuario){
+    if (usuario.value.length < 1) {
+        usuario.style.background='red';
+    }
+}
+function validarFecha(fecha){
+    if (fecha.value.substring(0,4)>2004||fecha.value.substring(0,4)=="") {
+        fecha.style.background='red';
+    }
+}
+function presionar(x){
+    x.style.background = "white";
+}
+function despresionar(x){
+    x.style.background =  "gainsboro";
+}
+function cambiarFotoIzq(x){
+    x.src="images/derby.webp";
+}
+function cambiarFotoDer(x){
+    x.src="images/inconveniente.webp";
+}
+function volverFotoIzq(x){
+    x.src="images/quijano.jpg";
+}
+function volverFotoDer(x){
+    x.src="images/elselu.jpg";
+}
 function getBICBank(entidad) {
 
     var bicMap = new Object();
@@ -487,36 +520,3 @@ function getBICBank(entidad) {
 
     return bicMap[entidad];
 }
-
-
-
-/*
-function $(selector) {
-    return document.querySelector(selector);
-
-}
-function myAlert(msg) {
-    var div = document.createElement("div");
-    div.classList.add("alert");
-    div.innerHTML = msg;
-    var close = document.createElement("span");
-    close.style.float = "right";
-    close.classList.add("close");
-    close.innerHTML = "X";
-    div.appendChild(close);
-    $("body").insertBefore(div, $("body").firstChild)
-    bind_close();
-}
-
-
-function bind_close() {
-    let elements = document.querySelectorAll(".close");
-    for (var i = elements.length - 1; i >= 0; i--) {
-        let el = elements[i];
-        el.addEventListener("click", function () {
-            this.parentNode.style.display = "none";
-        });
-    }
-    
-}
-*/
