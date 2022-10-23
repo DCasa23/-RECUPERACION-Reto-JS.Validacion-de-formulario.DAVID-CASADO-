@@ -103,7 +103,7 @@ function borrarTodo(){
     swift.placeholder = "Clicka aquí al introducir el IBAN";
 }
 function cambiarSWIFT(swift) {
-    if(typeof getBICBank(iban.value.substring(5, 9)==='undefined')){
+    if(getBICBank(iban.value.substring(5, 9)==null)){
         swift.placeholder = "IBAN INCORRECTO"
         iban.style.background='red';
     }else{
